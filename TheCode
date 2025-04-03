@@ -1,0 +1,56 @@
+"""
+Ref. Hatem.Yazidi@gmail.com
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.spatial import cKDTree
+
+# Step 1: Generate Random 2D Points
+np.random.seed(42)  # For reproducibility
+points = np.random.rand(20, 2) * 10  # 10 points in a 10x10 space
+values = np.random.rand(20) * 100  # Assign a random value (e.g., temperature)
+
+# Step 2: Create a KD-Tree
+tree = cKDTree(points)
+
+# Step 3: Query Point (find nearest neighbor)
+query_point = np.array([5, 5])  # Query location
+dist, idx = tree.query(query_point, k=1)  # Find the nearest neighbor
+
+# Get nearest point and transfer value
+nearest_point = points[idx]  # Extract the nearest point correctly
+transferred_value = values[idx]
+
+# Step 4: Visualization
+plt.figure(figsize=(6,6))
+
+# Plot all data points in blue
+plt.scatter(points[:, 0], points[:, 1], c='blue', s=100, label="Data Points (Initial)")
+
+# Highlight the query point in red
+plt.scatter(query_point[0], query_point[1], color='red', marker='x', s=150, label="Query Point")
+
+# Highlight the nearest neighbor in green
+plt.scatter(nearest_point[0], nearest_point[1], color='green', edgecolors='black', s=150, label="Nearest Neighbor")
+
+# Draw line from query point to nearest neighbor
+plt.plot([query_point[0], nearest_point[0]], [query_point[1], nearest_point[1]], 'k--', lw=2)
+
+# Display transferred value
+plt.text(nearest_point[0] + 0.3, nearest_point[1], f"{transferred_value:.2f}", fontsize=12, color='black', weight='bold')
+plt.text(query_point[0] + 0.3, query_point[1], f"Transferred: {transferred_value:.2f}", fontsize=12, color='red', weight='bold')
+
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("KD-Tree Nearest Neighbor - pour Denis 2025")
+plt.legend()
+plt.grid(True)
+plt.savefig("KDTree_v01.jpeg", dpi=75, bbox_inches='tight')
+plt.show()
+
+# Print Results
+print(f"Query Point: {query_point}")
+print(f"Nearest Point: {nearest_point}")
+print(f"Value at Nearest Point: {transferred_value:.2f}")
+print(f"Transferred Value to Query Point: {transferred_value:.2f}")
