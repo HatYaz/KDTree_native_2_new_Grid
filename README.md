@@ -23,4 +23,3 @@ This code is crucial when projecting data from a native grid onto a new grid usi
 - **Interpolation Methods**: If smooth transitions are needed, methods like inverse distance weighting (IDW) or Kriging could be considered.
 - **Handling Large Datasets**: For large environmental datasets, leveraging **parallelization** and **efficient memory management** is critical.
 
-Would you like a version of this code that processes an entire grid of new query points instead of just one?
